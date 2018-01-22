@@ -192,8 +192,9 @@ function setTokenSentToServer(currentToken) {
 }
 
 function updateUIForPushEnabled(currentToken) {
-    console.log(currentToken);
-    token.text(currentToken);
+
+    console.log('currentToken' . currentToken);
+    token.text(getToken());
 
     bt_delete.show();
     form.show();
