@@ -150,31 +150,7 @@ if (window.location.protocol === 'https:' &&
 
 
 function getToken() {
-    messaging.requestPermission()
-        .then(function() {
-            // Get Instance ID token. Initially this makes a network call, once retrieved
-            // subsequent calls to getToken will return from cache.
-            messaging.getToken()
-                .then(function(currentToken) {
-
-                    if (currentToken) {
-                        sendTokenToServer(currentToken);
-                        updateUIForPushEnabled(currentToken);
-                    } else {
-                        showError('No Instance ID token available. Request permission to generate one.');
-                        updateUIForPushPermissionRequired();
-                        setTokenSentToServer(false);
-                    }
-                })
-                .catch(function(error) {
-                    showError('An error occurred while retrieving token.', error);
-                    updateUIForPushPermissionRequired();
-                    setTokenSentToServer(false);
-                });
-        })
-        .catch(function(error) {
-            showError('Unable to get permission to notify.', error);
-        });
+   return ''
 }
 
 function sendNotification(notification) {
@@ -184,40 +160,21 @@ function sendNotification(notification) {
 
     enterDeviceToken = device_id.val();
 
-    info.hide();
-    massage_row.hide();
 
-    messaging.getToken()
-        .then(function(enterDeviceToken) {
-            fetch('https://fcm.googleapis.com/fcm/send', {
-                'method': 'POST',
-                'headers': {
-                    'Authorization': 'key=' + key,
-                    'Content-Type': 'application/json'
-                },
-                'body': JSON.stringify({
-                    'notification': notification,
-                    'to': enterDeviceToken
-                })
-            }).then(function(response) {
-                return response.json();
-            }).then(function(json) {
-                console.log('Response', json);
 
-                if (json.success == 1) {
-                    massage_row.show();
-                    massage_id.text(json.results[0].message_id);
-                } else {
-                    massage_row.hide();
-                    massage_id.text(json.results[0].error);
-                }
-            }).catch(function(error) {
-                showError(error);
-            });
+    fetch('https://fcm.googleapis.com/fcm/send', {
+        'method': 'POST',
+        'headers': {
+            'Authorization': 'key=' + key,
+            'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify({
+            'notification': notification,
+            'to': enterDeviceToken
         })
-        .catch(function(error) {
-            showError('Error retrieving Instance ID token.', error);
-        });
+    });
+
+    
 }
 
 // Send the Instance ID token your application server, so that it can:
