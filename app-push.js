@@ -108,19 +108,7 @@ if (window.location.protocol === 'https:' &&
         });
     });
 
-    // Callback fired if Instance ID token is updated.
-    messaging.onTokenRefresh(function() {
-        messaging.getToken()
-            .then(function(refreshedToken) {
-                console.log('Token refreshed.');
-                // Send Instance ID token to app server.
-                sendTokenToServer(refreshedToken);
-                updateUIForPushEnabled(refreshedToken);
-            })
-            .catch(function(error) {
-                showError('Unable to retrieve refreshed token.', error);
-            });
-    });
+
 
 } else {
     if (window.location.protocol !== 'https:') {
@@ -150,7 +138,7 @@ if (window.location.protocol === 'https:' &&
 
 
 function getToken() {
-   return ''
+   return device_id.val();
 }
 
 function sendNotification(notification) {
@@ -174,7 +162,7 @@ function sendNotification(notification) {
         })
     });
 
-    
+
 }
 
 // Send the Instance ID token your application server, so that it can:
