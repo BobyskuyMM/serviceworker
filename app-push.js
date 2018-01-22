@@ -67,7 +67,7 @@ function sendNotification(notification) {
             'to': enterDeviceToken
         })
     });
-    
+
    return false;
 
 }

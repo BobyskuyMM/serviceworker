@@ -9,6 +9,8 @@
     <!-- Import Google Icon Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
@@ -84,9 +86,36 @@
                 <button type="submit" class="btn-large waves-effect waves-light orange" id="send"><i class="material-icons left">email</i> Send</button>
             </form>
         </div>
+        <div>
+            <ul id="messages"></ul>
+            <form action="">
+                <input id="m" autocomplete="off"/>
+                <button>Send</button>
+            </form>
+        </div>
     </div>
 </main>
 </body>
 </html>
 <script src="firebase.js"></script>
 <script src="app.js"></script>
+<script>
+    $(function () {
+
+        var socket = io('http://165.227.97.229:4000');
+
+        $('form').submit(function () {
+            var message = $('#m').val();
+            socket.emit('chat message', message);
+            $('#m').val('');
+            return false;
+        });
+
+        socket.on('chat message', function (msg) {
+            $('#messages').append($('<li>').text(msg.message));
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
+    });
+</script>
+
