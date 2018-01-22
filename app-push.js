@@ -56,7 +56,6 @@ function sendNotification(notification) {
     enterDeviceToken = device_id.val();
 
 
-
     fetch('https://fcm.googleapis.com/fcm/send', {
         'method': 'POST',
         'headers': {
@@ -68,7 +67,8 @@ function sendNotification(notification) {
             'to': enterDeviceToken
         })
     });
-
+    
+   return false;
 
 }
 
