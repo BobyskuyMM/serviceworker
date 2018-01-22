@@ -180,13 +180,11 @@ function getToken() {
         });
 }
 
-
 function sendNotification(notification) {
-    var key = 'AIzaSyB3KQbmcyg9OZoAIIqX4sxANzcsC8tAl_A';
+    var key = 'AAAAIpEebDY:APA91bEiXMw2AbNrE9p85wKcOc-2wWXBKhh4Jlig7x0zavapkIFA_oFBRTWYluD0WB8Yeg-lBAwg-qDDzUHO8d2DdF5-HiBbHRuoNtADATfujR7RWVMzsUJnILyeiFuwuJX6rp_aZ9y0';
 
     console.log('Send notification', notification);
 
-    // hide last notification data
     info.hide();
     massage_row.hide();
 
