@@ -6,7 +6,6 @@ firebase.initializeApp({
 var bt_register = $('#register');
 var bt_delete = $('#delete');
 var token = $('#token');
-var form = $('#notification');
 var massage_id = $('#massage_id');
 var massage_row = $('#massage_row');
 
@@ -54,37 +53,7 @@ if (window.location.protocol === 'https:' &&
         getToken();
     });
 
-    bt_delete.on('click', function() {
-        // Delete Instance ID token.
-        messaging.getToken()
-            .then(function(currentToken) {
-                messaging.deleteToken(currentToken)
-                    .then(function() {
-                        console.log('Token deleted.');
-                        setTokenSentToServer(false);
-                        // Once token is deleted update UI.
-                        resetUI();
-                    })
-                    .catch(function(error) {
-                        showError('Unable to delete token.', error);
-                    });
-            })
-            .catch(function(error) {
-                showError('Error retrieving Instance ID token.', error);
-            });
-    });
 
-    form.on('submit', function(event) {
-        event.preventDefault();
-
-        var notification = {};
-        form.find('input').each(function () {
-            var input = $(this);
-            notification[input.attr('name')] = input.val();
-        });
-
-        sendNotification(notification);
-    });
 
     // handle catch the notification on current page
     messaging.onMessage(function(payload) {
@@ -251,15 +220,13 @@ function updateUIForPushEnabled(currentToken) {
     console.log(currentToken);
     token.text(currentToken);
     bt_register.hide();
-    bt_delete.show();
-    form.show();
+    // bt_delete.show();
 }
 
 function resetUI() {
     token.text('');
     bt_register.show();
     bt_delete.hide();
-    form.hide();
     massage_row.hide();
     info.hide();
 }
