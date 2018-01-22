@@ -32,7 +32,7 @@ function addZero(i) {
     return i > 9 ? i : '0' + i;
 }
 
-setNotificationDemoBody();
+// setNotificationDemoBody();
 resetUI();
 
 if (window.location.protocol === 'https:' &&
