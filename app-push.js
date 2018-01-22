@@ -182,13 +182,13 @@ function sendNotification(notification) {
 
     console.log('Send notification', notification);
 
-    var deviceToken = device_id.val();
+    enterDeviceToken = device_id.val();
 
     info.hide();
     massage_row.hide();
 
     messaging.getToken()
-        .then(function(deviceToken) {
+        .then(function(enterDeviceToken) {
             fetch('https://fcm.googleapis.com/fcm/send', {
                 'method': 'POST',
                 'headers': {
@@ -197,7 +197,7 @@ function sendNotification(notification) {
                 },
                 'body': JSON.stringify({
                     'notification': notification,
-                    'to': deviceToken
+                    'to': enterDeviceToken
                 })
             }).then(function(response) {
                 return response.json();
